@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/static/homepagestyle.css" type="text/css">
+<h1>Welcome!</h1>
+
+<form action="/postprocess" method="POST" method="GET" style="float:centre">
+	<div class="homepage">
+		<div class="home-screen">
+			<div class="app-title">
+				<h1>Make a Post</h1>
+			</div>
+ 
+			<div class="home-form">
+				<div class="control-group">
+				<input type="text" class="home-field" value="" placeholder="title" name="titleofpost">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+ 
+				<div class="control-group">
+				<input type="text" class="home-field" value="" placeholder="text" name="textofpost">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+ 
+                <input type="submit" value="Post" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div>
+		</div>
+	</div>
+</form>
+
+<form action="/feed" method="POST" method="GET" style="float:centre">
+	<div class="feed">
+		<div class="feed-screen">
+			<div class="app-title">
+				<h1>See your feed</h1>
+			</div>
+                <input type="submit" value="Go to Feed" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div>
+    </div>
+</form>
+
+    
