@@ -8,11 +8,14 @@ from tabledef2 import *
 import stream
 import datetime
 
+client = stream.connect('5mnrvpfeba4m', 'ad7ytbvpnw4ubtxx7cfqu4def8h3ne6qm82ueetgqsbbzdr4sdt4gcw7pa7jd5yr')
 engine1 = create_engine('sqlite:///socialmedia.db', echo=True)
 postengine = create_engine('sqlite:///socialmediaposts.db', echo=True)
 
 app = Flask(__name__)
+
 POST_USERNAME = ''
+
 @app.route('/')
 def home():
     if not session.get('logged_in'):
@@ -22,7 +25,7 @@ def home():
      
 @app.route('/login', methods=['POST'])
 def login():
-
+    global POST_USERNAME
     POST_USERNAME = str(request.form['username'])
     POST_PASSWORD = str(request.form['password'])
     
@@ -41,7 +44,7 @@ def login():
 def homepage():
     title = str(request.form['titleofpost'])
     text = str(request.form['textofpost'])
-
+    user = POST_USERNAME
     postengine = create_engine('sqlite:///socialmediaposts.db', echo=True)
 
     # create a Session
@@ -49,7 +52,7 @@ def homepage():
     session = Session()
 
 
-    post = Posts(title,text)
+    post = Posts(title,text,user)
     session.add(post)
     session.commit()
     
