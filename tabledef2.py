@@ -15,12 +15,12 @@ class Posts(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     text = Column(String)
- 
+    user = Column(String)
     #----------------------------------------------------------------------
-    def __init__(self, title, text):
+    def __init__(self, title, text, user):
         """"""
         self.title = title
         self.text = text
- 
+        self.user = user
 # create tables
 Base.metadata.create_all(postengine)
