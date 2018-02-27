@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/static/stylesignup.css" type="text/css">
+{% block body %}
+{% if session['logged_in'] %}
+<p>You already have an account and are logged in already!</p>
+{% else %}
+ 
+ 
+<form action="/signup" method="POST", method="GET">
+	<div class="signup">
+		<div class="signup-screen">
+			<div class="app-title">
+				<h1>Sign Up</h1>
+			</div>
+ 
+			<div class="signup-form">
+				<div class="control-group">
+				<input type="text" class="signup-field" value="" placeholder="username" name="NEW_USERNAME">
+				<label class="login-field-icon fui-user" for="signup-name"></label>
+				</div>
+ 
+				<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="password" name="NEW_PASSWORD">
+				<label class="login-field-icon fui-lock" for="signup-pass"></label>
+				</div>
+ 
+                <input type="submit" value="Sign Up" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div>
+		</div>
+	</div>
+</form>
+ 
+{% endif %}
+{% endblock %}
