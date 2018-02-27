@@ -15,11 +15,15 @@ postengine = create_engine('sqlite:///socialmediaposts.db', echo=True)
 app = Flask(__name__)
 
 POST_USERNAME = ''
+signed_up = ''
 
 @app.route('/')
 def home():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        if not signed_up:
+            return render_template('signup.html')
+        else:
+            return render_template('login.html')
     else:
         return render_template('homepage.html')
      
@@ -35,6 +39,7 @@ def login():
     result = query.first()
     if result:
         session['logged_in'] = True
+        session['signed_up'] = True
     else:
         flash('wrong password!')
     return home()
@@ -76,7 +81,22 @@ def feed():
         
     return render_template('feed.html', postresult = postresult, userresult=userresult)
 
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+    NEW_USERNAME = str(request.form['NEW_USERNAME'])
+    NEW_PASSWORD = str(request.form['NEW_PASSWORD'])
+    # create a Session
+    Session = sessionmaker(bind=engine1)
+    session = Session()
 
+
+    user = User(NEW_USERNAME,NEW_PASSWORD)
+    session.add(user)
+
+    session.commit()
+    global signed_up
+    signed_up = True
+    return home()
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
