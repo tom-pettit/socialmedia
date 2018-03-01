@@ -8,7 +8,6 @@ from tabledef2 import *
 import stream
 import datetime
 
-client = stream.connect('5mnrvpfeba4m', 'ad7ytbvpnw4ubtxx7cfqu4def8h3ne6qm82ueetgqsbbzdr4sdt4gcw7pa7jd5yr')
 engine1 = create_engine('sqlite:///socialmedia.db', echo=True)
 postengine = create_engine('sqlite:///socialmediaposts.db', echo=True)
 
@@ -20,10 +19,7 @@ signed_up = ''
 @app.route('/')
 def home():
     if not session.get('logged_in'):
-        if not signed_up:
-            return render_template('signup.html')
-        else:
-            return render_template('login.html')
+        return render_template('login.html')
     else:
         return render_template('homepage.html')
      
@@ -44,6 +40,14 @@ def login():
         flash('wrong password!')
     return home()
 
+@app.route('/gotosignup', methods=['GET', 'POST'])
+def gotosignup():
+    return render_template('signup.html')
+
+
+@app.route('/gotosignin', methods=['GET', 'POST'])
+def gotosignin():
+    return render_template('login.html')
 
 @app.route('/postprocess', methods=['POST'])
 def homepage():
@@ -64,7 +68,7 @@ def homepage():
     return home()
 
     
-@app.route("/logout")
+@app.route("/logout", methods=['POST', 'GET'])
 def logout():
     session['logged_in'] = False
     return home()
